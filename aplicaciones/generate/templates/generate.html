@@ -1,0 +1,18 @@
+$def with(response="")
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Hola mundo web.py</title>
+</head>
+<body>
+    <form method="POST">
+        <label for="inp_prompt" name="lbl_prompt">Enter your prompt:</label><br>
+        <input type="text" name="inp_prompt" id="inp_prompt" value=""><br>
+        <button type="submit" name="btn_generate" value="generate">Send</button><br>
+        <label for="inp_response" name="lbl_response">Response:</label><br>
+        <input type="text" name="inp_response" id="inp_response" value="$response" readonly><br>
+    </form>
+</body>
+</html>

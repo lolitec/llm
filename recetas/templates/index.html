@@ -1,0 +1,26 @@
+$def with (resultado)
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Recetario IA</title>
+</head>
+<body>
+    <h1>Pregúntale a la IA por una receta!</h1>
+    <form method="POST">
+        <!--Espacio donde el usuario va a ingresar su platillo-->
+        <!--name es la clave con la que se accede al valor en app.py-->
+        <!--placeholder es el mensaje que le indica al usuario lo que debe hacer-->
+        <!--required obliga a que no se pueda continuar si no se escribio nada-->
+        <input type="text" name="mensaje" placeholder="Escribe un platillo..." required>
+        <!--Se crea el boton para enviar la informacion, como solo se usa para eso se deja como input-->
+        <input type="submit" value="Enviar">
+    </form>
+
+    $if resultado:
+        <h2>Resultado:</h2>
+        <!--pre indica que se mantenga el formateo de texto que indica la ia, saltos de linea etc...-->
+        <pre>$resultado</pre>
+</body>
+</html>
