@@ -1,17 +1,16 @@
 import web
 import os
-import re
 from groq import Groq
 
 os.environ["GROQ_API_KEY"] = "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"
 
-urls = ("/", "Index")
+urls = (
+    "/", "Index",
+    "/recetas/stylesheet/(.*)", "StaticHandler"  # Nueva ruta para archivos estáticos
+)
+
 app = web.application(urls, globals())
 render = web.template.render("templates/")
-
-# Función para eliminar el 'razonamiento' de la IA.
-def limpiar_respuesta(texto):
-    return re.sub(r"<think>.*?</think>", "", texto, flags=re.DOTALL).strip()
 
 class Index:
     def GET(self):
@@ -23,7 +22,7 @@ class Index:
         client = Groq()
 
         completion = client.chat.completions.create(
-            model="qwen-qwq-32b",
+            model="meta-llama/llama-4-scout-17b-16e-instruct",
             messages=[
                 {
                     "role": "system",
@@ -39,14 +38,25 @@ class Index:
                     "content": user_input
                 }
             ],
-            temperature=0.6,
-            max_tokens=1024,
-            top_p=0.95,
+            temperature=1,
+            max_completion_tokens=1024,
+            top_p=1,
             stream=False,
+            stop=None,
         )
 
-        respuesta = limpiar_respuesta(completion.choices[0].message.content)
+        respuesta = completion.choices[0].message.content
         return render.index(resultado=respuesta)
+
+class StaticHandler:
+    def GET(self, filename):
+        filepath = os.path.join("stylesheet", filename)
+        if os.path.exists(filepath):
+            web.header("Content-Type", "text/css")
+            with open(filepath, "r", encoding="utf-8") as f:
+                return f.read()
+        else:
+            return web.notfound("Archivo no encontrado")
 
 if __name__ == "__main__":
     app.run()

@@ -5,22 +5,132 @@ $def with (resultado)
 <head>
     <meta charset="UTF-8">
     <title>Recetario IA</title>
+    <style>
+        body {
+            background-color: #fffaf0;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .contenedor {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #8b4513;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            width: 85%;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s ease-in-out;
+        }
+
+        input[type="text"]:focus {
+            border-color: #f4a261;
+            outline: none;
+            box-shadow: 0 0 5px rgba(244, 162, 97, 0.5);
+        }
+
+        input[type="submit"] {
+            background-color: #f4a261;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #e76f51;
+        }
+
+        .resultado-titulo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            gap: 30px;
+        }
+
+        .resultado-titulo img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            opacity: 0.9;
+        }
+
+        .resultado-titulo span {
+            font-family: 'Georgia', serif;
+            font-size: 28px;
+            color: #8b4513;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .tarjeta-receta {
+            background-color: #fdf6ec;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            margin-top: 10px;
+            text-align: left;
+            border: 1px solid #f0e0d0;
+        }
+
+        .tarjeta-receta pre {
+            font-family: 'Georgia', serif;
+            font-size: 16px;
+            color: #2d2d2d;
+            line-height: 1.8;
+            letter-spacing: 0.3px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 0;
+            tab-size: 4;
+        }
+    </style>
 </head>
 <body>
-    <h1>Pregúntale a la IA por una receta!</h1>
-    <form method="POST">
-        <!--Espacio donde el usuario va a ingresar su platillo-->
-        <!--name es la clave con la que se accede al valor en app.py-->
-        <!--placeholder es el mensaje que le indica al usuario lo que debe hacer-->
-        <!--required obliga a que no se pueda continuar si no se escribio nada-->
-        <input type="text" name="mensaje" placeholder="Escribe un platillo..." required>
-        <!--Se crea el boton para enviar la informacion, como solo se usa para eso se deja como input-->
-        <input type="submit" value="Enviar">
-    </form>
+    <div class="contenedor">
+        <h1>Pregúntale a la IA por una receta!</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="text" name="mensaje" placeholder="Escribe un platillo..." required><br>
+            <input type="submit" value="Enviar">
+        </form>
 
-    $if resultado:
-        <h2>Resultado:</h2>
-        <!--pre indica que se mantenga el formateo de texto que indica la ia, saltos de linea etc...-->
-        <pre>$resultado</pre>
+        $if resultado:
+            <div class="resultado-titulo">
+                <img src="https://imgs.search.brave.com/xqBzYxuHugNsFfGDnW3iRznkCLKiGnQU4oYjLKId1AI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bmljZXBuZy5jb20v/cG5nL2RldGFpbC8z/NjgtMzY4Nzg4NF9j/b29rLWtpcmJ5LWtp/cmJ5LWNoZWYucG5n" alt="kirby_cocinando">
+                <span>Receta:</span>
+                <img src="https://imgs.search.brave.com/a8VbZ9APoltDOZ7zXL679N6S-VI6naelw0JWgmh5s6A/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wbmdm/cmUuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9LaXJieS0xMi5w/bmc" alt="kirby_sorprendido">
+            </div>
+
+            <div class="tarjeta-receta">
+                <pre>$resultado</pre>
+            </div>
+    </div>
 </body>
 </html>
